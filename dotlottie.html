@@ -8,12 +8,7 @@
   </head>
   <body style="background: #1d2021">
     <div style="display: block">
-      <dotlottie-player
-        autoplay
-        loop
-        mode="normal"
-        style="width: 200px; margin: 0 auto"
-      >
+      <dotlottie-player autoplay loop mode="normal" style="margin: 0 auto">
       </dotlottie-player>
     </div>
     <script src="./dotlottie-player-1.0.0.min.js"></script>
@@ -21,7 +16,9 @@
       const urlSearchParams = new URLSearchParams(window.location.search);
       const paramUrl = urlSearchParams.get("url");
       const stickerUrl = atob(paramUrl);
+      const paramWidth = urlSearchParams.get("w") || 200;
       const player = document.querySelector("dotlottie-player");
+      player.style.width = paramWidth + "px";
       player.load(stickerUrl);
     </script>
   </body>
