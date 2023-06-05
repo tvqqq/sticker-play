@@ -3,14 +3,58 @@
   <head>
     <meta charset="utf-8" />
     <title>Sticker Play - Zalo Sprite</title>
-    <style></style>
+    <style>
+      /* .sticker {
+        background-position: 0 0;
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: relative;
+      } */
+      #sticker {
+        margin: 0 auto;
+        width: 130px;
+        height: 130px;
+        background-position: 0 0;
+        background-repeat: repeat-x;
+      }
+    </style>
   </head>
-  <body>
-    <p>This is my HTML5 Boilerplate.</p>
-
+  <body style="background: #1d2021">
+    <div style="display: block">
+      <div id="sticker"></div>
+    </div>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script>
-      $(document).ready(function () {});
+      $(document).ready(function () {
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        const paramUrl = urlSearchParams.get("url");
+        const stickerUrl = atob(paramUrl);
+        const stickerEl = $("#sticker");
+        const img = new Image();
+        let stickerWidth = 2210;
+        let stickerHeight = 130;
+        img.onload = function () {
+          stickerWidth = this.width;
+          stickerHeight = this.height;
+          stickerEl.css(
+            "background-size",
+            stickerWidth + "px " + stickerHeight + "px"
+          );
+        };
+        img.src = stickerUrl;
+        stickerEl.css("background-image", "url(" + stickerUrl + ")");
+        setTimeout(function () {
+          const maxX = stickerWidth;
+          let x = 0;
+          setInterval(function () {
+            x += stickerHeight;
+            if (x >= maxX) {
+              x = 0;
+            }
+            $("#sticker").css("background-position", "-" + x + "px 0");
+          }, 100);
+        }, 500);
+      });
     </script>
   </body>
 </html>
